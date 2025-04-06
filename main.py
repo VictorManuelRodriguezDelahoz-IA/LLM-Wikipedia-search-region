@@ -1,4 +1,5 @@
 import os
+import sys
 from rag_components import data_loading, embedding, vector_db, retrieval, generation
 
 # Configuración (ajusta según tu proyecto)
@@ -32,18 +33,22 @@ ids = [f"doc_{i}" for i in range(len(documentos))]
 if not vector_db.agregar_datos_coleccion(coleccion, embeddings, documentos, ids):
     exit()
 
-# 4. Obtener la consulta del usuario (esto es un ejemplo, puedes obtenerla de otra manera)
-consulta_usuario = "Cual es la capital de Santander?"
-print(consulta_usuario)
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        consulta_usuario = sys.argv[1]  # Obtener la consulta del primer argumento
+    else:
+        print("Por favor, proporciona una consulta como argumento al ejecutar el script.")
+        print("Ejemplo: python main.py \"¿Cuál es la capital de Antioquia?\"")
+        exit()
 
-# 5. Recuperar los documentos relevantes
-documentos_relevantes = retrieval.recuperar_documentos_relevantes(
-    consulta_usuario, coleccion, modelo_embeddings
-)
+    # 5. Recuperar los documentos relevantes
+    documentos_relevantes = retrieval.recuperar_documentos_relevantes(
+        consulta_usuario, coleccion, modelo_embeddings
+    )
 
-# 6. Generar la respuesta
-if documentos_relevantes:
-    respuesta = generation.generar_respuesta_simple(consulta_usuario, documentos_relevantes)
-    print("\nRespuesta:\n", respuesta)
-else:
-    print("No se encontraron documentos relevantes.")
+    # 6. Generar la respuesta
+    if documentos_relevantes:
+        respuesta = generation.generar_respuesta_simple(consulta_usuario, documentos_relevantes)
+        print("\nRespuesta:\n", respuesta)
+    else:
+        print("No se encontraron documentos relevantes.")
