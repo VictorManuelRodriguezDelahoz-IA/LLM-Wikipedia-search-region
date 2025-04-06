@@ -10,3 +10,4 @@ Pasos :
 8. Aplicar linters y pretiers
 9. Crear docker
 10. Buscar la manera de exponer en la web de la manera mas optima
+11. Organizar los cambios bien en git
