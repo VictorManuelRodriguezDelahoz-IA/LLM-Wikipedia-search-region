@@ -1,0 +1,16 @@
+[MASTER]
+load-plugins=pylint.extensions.noerrorcheck
+
+[FORMAT]
+max-line-length=100
+
+[DESIGN]
+max-args=7
+
+[SIMILARITIES]
+min-similarity-lines=4
+
+[MESSAGES CONTROL]
+disable=
+    C0301,  # Línea demasiado larga (lo manejará Prettier)
+    W0511   # TODOs (puedes habilitarlo si quieres que Pylint los señale)
